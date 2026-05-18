@@ -1,6 +1,10 @@
+import requests
+import os
 from fastapi import APIRouter
 from app.models.chat import ChatRequest
 from app.services.chat_service import process_message
+from app.services.telegram_service import (send_telegram_message)
+from app.config.settings import settings
 
 router = APIRouter()
 
@@ -24,9 +28,7 @@ def chat(request: ChatRequest):
     }
 
 @router.post("/telegram/webhook")
-def telegram_webhook(
-    payload: dict
-):
+def telegram_webhook(payload: dict):
 
     message = payload.get(
         "message",
@@ -36,10 +38,40 @@ def telegram_webhook(
         ""
     )
 
-    reply = process_message(
-        message
+    chat_id = payload.get(
+        "message",
+        {}
+    ).get(
+        "chat",
+        {}
+    ).get(
+        "id"
+    )
+
+    reply = f"Backend received: {message}"
+
+    token = settings.TELEGRAM_TOKEN
+
+    print("TOKEN:", token)
+    print("CHAT ID:", chat_id)
+
+    requests.post(
+        f"https://api.telegram.org/bot{token}/sendMessage",
+        json={
+            "chat_id": chat_id,
+            "text": reply
+        }
     )
 
     return {
-       "telegram_reply": reply
+       "reply": reply
     }
+
+@router.post("/telegram/send")
+def send_message():
+
+    response = send_telegram_message(
+        "Halo dari backend FastAPI"
+    )
+
+    return response
