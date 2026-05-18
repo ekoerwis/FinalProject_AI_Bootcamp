@@ -22,3 +22,24 @@ def chat(request: ChatRequest):
     return {
 	"reply": reply
     }
+
+@router.post("/telegram/webhook")
+def telegram_webhook(
+    payload: dict
+):
+
+    message = payload.get(
+        "message",
+        {}
+    ).get(
+        "text",
+        ""
+    )
+
+    reply = process_message(
+        message
+    )
+
+    return {
+       "telegram_reply": reply
+    }
