@@ -1,2 +1,8 @@
 # FinalProject_AI_Bootcamp
-Final Project AI Bootcamp Batch 10
+
+## Anggota Tim NLP - B - NaLaPro
+- Wahid Setio Darmadi
+- M. Dhimas Agung Sugiharto
+- Yasmin Kamila
+- Eko Erwis Wandoko
+- Muh.idris
