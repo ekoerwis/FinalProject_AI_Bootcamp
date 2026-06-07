@@ -1,14 +1,54 @@
-import json
+from dotenv import load_dotenv
+import os
+from groq import Groq
+from app.services.rag_service import rag_search
 
-with open("data/sop.json", "r", encoding="utf-8") as f:
-    SOP_DATA = json.load(f)
+load_dotenv()
 
-def get_response(text):
+client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
 
-    text = text.lower()
+def detect_brand(message: str) -> str | None:
+    message_lower = message.lower()
 
-    for keyword, response in SOP_DATA.items():
-        if keyword in text:
-            return response
+    if "pecel lele" in message_lower or "lala" in message_lower:
+        return "Pecel Lele Lala"
+    elif "yeyeti" in message_lower or "katering" in message_lower:
+        return "Katering Yeyeti"
+    elif "mbok darmi" in message_lower or "susu" in message_lower:
+        return "Susu Mbok Darmi"
 
-    return "Maaf, informasi belum tersedia."
+    return None
+
+def get_response(message: str, brand: str = None) -> str:
+    try:
+        
+        brand = detect_brand(message)
+
+        doc = rag_search(message, brand=brand)
+
+        if not doc:
+            return "Maaf, saya tidak menemukan informasi yang relevan."
+
+        response = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        f"Kamu adalah asisten internal {brand or 'perusahaan'}."
+                        "Jawab berdasarkan dokumen SOP yang diberikan. "
+                        "Gunakan bahasa Indonesia yang sopan dan ringkas."
+                    )
+                 },
+                 {
+                     "role": "user",
+                     "content": f"Dokumen SOP:\n{doc}\n\nPertanyaan: {message}"
+                 }
+             ],
+             max_tokens=1024
+        )
+
+        return response.choices[0].message.content
+
+    except Exception as e:
+        return f"Error: {str(e)}"

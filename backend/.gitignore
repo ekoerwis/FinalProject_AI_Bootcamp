@@ -4,3 +4,12 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .DS_Store
+*.py[cod]
+.venv/
+venv/
+
+chroma_db/
+
+data/
+
+*.log

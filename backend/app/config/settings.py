@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     VERSION: str
     TELEGRAM_TOKEN: str
     TELEGRAM_CHAT_ID: str
+    GROQ_API_KEY: str
     class Config:
         env_file = ".env"
 

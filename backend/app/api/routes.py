@@ -1,5 +1,6 @@
 import requests
 import os
+from fastapi.responses import JSONResponse
 from fastapi import APIRouter
 from app.models.chat import ChatRequest
 from app.services.chat_service import get_response
@@ -19,13 +20,14 @@ def status():
 
 @router.post("/chat")
 def chat(request: ChatRequest):
-    reply = process_message(
-        request.message
+    reply = get_response(
+        message=request.message 
     )
 
-    return {
-	"reply": reply
-    }
+    return JSONResponse(
+       content={"reply": reply},
+       media_type="application/json; charset=utf-8"
+    )
 
 @router.post("/telegram/webhook")
 def telegram_webhook(payload: dict):
