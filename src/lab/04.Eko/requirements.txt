@@ -1,0 +1,12 @@
+streamlit
+langchain
+google-genai
+qdrant-client
+sentence-transformers
+pymupdf
+python-dotenv
+langchain-community
+langchain-qdrant
+langchain-huggingface
+rouge
+rouge-score
