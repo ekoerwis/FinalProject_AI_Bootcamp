@@ -52,6 +52,7 @@ def load_sheets():
 
 embedder, qdrant, groq_client = load_resources()
 sheet = load_sheets()
+st.write(f"Sheet terhubung: {sheet.title}")
 
 # ============================================================
 # Fungsi Log ke Google Sheets
