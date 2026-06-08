@@ -79,7 +79,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.messages.append({
         "role": "assistant",
-        "content": f"Halo! Saya asisten onboarding {COMPANY_NAME}. Ada yang bisa saya bantu?"
+        "content": f"Halo! Saya asisten setia, ramah, dan amanah perwakilan {COMPANY_NAME}. Ada yang bisa saya bantu?"
     })
 
 # Tampilkan chat history
