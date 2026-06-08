@@ -12,7 +12,7 @@
 ## 📱 Demo
 
 Chatbot live dan bisa diakses di:  
-🔗 [rag-app-chatbot-kateringyeyeti.streamlit.app]([https://rag-app-chatbot-kateringyeyeti.streamlit.app](https://finalprojectaibootcamp-katering.streamlit.app))
+🔗 https://finalprojectaibootcamp-katering.streamlit.app
 
 ---
 
