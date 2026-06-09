@@ -56,7 +56,7 @@ sheet = load_sheets()
 # ============================================================
 # Fungsi Log ke Google Sheets
 # ============================================================
-def log_to_sheets(pertanyaan, jawaban, response_time):
+def log_to_sheets(pertanyaan, jawaban, response_time, score):
     try:
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         sheet.append_row([
@@ -64,7 +64,8 @@ def log_to_sheets(pertanyaan, jawaban, response_time):
             pertanyaan,
             jawaban,
             COMPANY_NAME,
-            f"{response_time:.2f}"
+            f"{response_time:.2f}",
+            f"{score:.4f}"
         ])
     except Exception as e:
         st.warning(f"Log gagal: {e}")
@@ -79,7 +80,11 @@ def rag_chat(pertanyaan: str, top_k: int = 11):
         collection_name=COLLECTION_NAME,
         query=query_vector,
         limit=top_k,
+        with_score=True,
     ).points
+
+    # Ambil rata-rata skor sebagai representasi relevansi dokumen
+    avg_score = sum(r.score for r in results) / len(results) if results else 0
 
     context = "\n\n".join([r.payload["text"] for r in results])
 
@@ -113,7 +118,7 @@ Jika informasi tidak ada di konteks, katakan dengan jujur bahwa kamu tidak tahu.
             }
         ]
     )
-    return response.choices[0].message.content
+    return response.choices[0].message.content, avg_score
 
 # ============================================================
 # UI Streamlit
@@ -147,11 +152,11 @@ if pertanyaan := st.chat_input("Ketik pertanyaan kamu di sini..."):
     with st.chat_message("assistant"):
         with st.spinner("Mencari jawaban..."):
             start_time = time.time()
-            jawaban = rag_chat(pertanyaan)
+            jawaban, score = rag_chat(pertanyaan)
             response_time = time.time() - start_time
         st.markdown(jawaban)
         st.caption(f"⏱️ {response_time:.2f} detik")
         st.session_state.messages.append({"role": "assistant", "content": jawaban})
 
     # Log ke Google Sheets
-    log_to_sheets(pertanyaan, jawaban, response_time)
+    log_to_sheets(pertanyaan, jawaban, response_time, score)
