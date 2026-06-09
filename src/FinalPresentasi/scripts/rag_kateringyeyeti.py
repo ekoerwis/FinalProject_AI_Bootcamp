@@ -142,7 +142,7 @@ from groq import Groq
 
 groq_client = Groq(api_key=os.environ["GROQ_API_KEY"])
 
-def rag_chat(pertanyaan: str, top_k: int = 5):
+def rag_chat(pertanyaan: str, top_k: int = 11):
     # 1. Embed pertanyaan
     query_vector = embedder.encode(pertanyaan).tolist()
 
