@@ -72,7 +72,7 @@ def log_to_sheets(pertanyaan, jawaban, response_time):
 # ============================================================
 # Fungsi RAG Chat
 # ============================================================
-def rag_chat(pertanyaan: str, top_k: int = 5):
+def rag_chat(pertanyaan: str, top_k: int = 11):
     query_vector = embedder.encode(pertanyaan).tolist()
 
     results = qdrant.query_points(
