@@ -80,7 +80,7 @@ def rag_chat(pertanyaan: str, top_k: int = 11):
         collection_name=COLLECTION_NAME,
         query=query_vector,
         limit=top_k,
-        with_score=True,
+#        with_score=True,
     ).points
 
     # Ambil rata-rata skor sebagai representasi relevansi dokumen
