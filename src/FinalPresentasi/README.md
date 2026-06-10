@@ -101,13 +101,9 @@ FinalProject_AI_Bootcamp/
 │   │   ├── assets/
 │   │   │   └── Pipeline_RAG_Final_Bootcamp.png
 │   │   ├── notebooks/
-│   │   │   ├── RAG_kateringyeyeti.ipynb
-│   │   │   ├── RAG_pecellelelala.ipynb
-│   │   │   └── RAG_susumbokdarmi.ipynb
+│   │   │   └── RAG_kateringyeyeti.ipynb
 │   │   ├── scripts/
-│   │   │   ├── rag_kateringyeyeti.py
-│   │   │   ├── rag_pecellelelala.py
-│   │   │   └── rag_susumbokdarmi.py
+│   │   │   └── rag_kateringyeyeti.py
 │   │   ├── README.md
 │   │   ├── app.py
 │   │   ├── gitignore.txt
