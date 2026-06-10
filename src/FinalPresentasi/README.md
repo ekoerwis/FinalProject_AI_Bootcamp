@@ -1,4 +1,4 @@
-# 🤖 RAG Onboarding Chatbot — F&B Industry
+# RAG Onboarding Chatbot — F&B Industry
 
 <p align="center">
   <img src="assets/Pipeline_RAG_Final_Bootcamp.png" width="600"/>
@@ -9,14 +9,13 @@
 
 ---
 
-## 📱 Demo
+## Demo
 
-Chatbot live dan bisa diakses di:  
-🔗 https://finalprojectaibootcamp-katering.streamlit.app
+Chatbot live dan bisa diakses di:  https://finalprojectaibootcamp-katering.streamlit.app
 
 ---
 
-## 📌 Deskripsi Proyek
+## Deskripsi Proyek
 
 Chatbot berbasis RAG yang dirancang untuk membantu karyawan baru memahami dokumen internal perusahaan secara interaktif. Sistem ini memungkinkan pengguna mengajukan pertanyaan dalam bahasa natural dan mendapatkan jawaban yang relevan berdasarkan dokumen resmi perusahaan — tanpa perlu membaca seluruh dokumen secara manual.
 
@@ -24,7 +23,7 @@ Proyek ini menggunakan **Katering Yeyeti** sebagai studi kasus, dengan dataset d
 
 ---
 
-## 🏢 Dataset
+## Dataset
 
 | Perusahaan | Brand | Dokumen |
 |---|---|---|
@@ -34,7 +33,7 @@ Proyek ini menggunakan **Katering Yeyeti** sebagai studi kasus, dengan dataset d
 
 ---
 
-## ⚙️ Tech Stack
+## Tech Stack
 
 | Komponen | Teknologi |
 |---|---|
@@ -52,7 +51,7 @@ Proyek ini menggunakan **Katering Yeyeti** sebagai studi kasus, dengan dataset d
 
 ---
 
-## 🔄 Cara Kerja RAG Pipeline
+## Cara Kerja RAG Pipeline
 
 ```
 PDF Dokumen → Chunking → Embedding → Qdrant Cloud
@@ -72,7 +71,7 @@ Pertanyaan User → Embedding → Vector Search → Context + Pertanyaan → LLM
 
 ---
 
-## 📊 Hasil Evaluasi ROUGE Score
+## Hasil Evaluasi ROUGE Score
 
 | Perusahaan | ROUGE-1 | ROUGE-2 | ROUGE-L |
 |---|---|---|---|
@@ -83,7 +82,7 @@ Pertanyaan User → Embedding → Vector Search → Context + Pertanyaan → LLM
 
 ---
 
-## ⚠️ Limitasi & Rekomendasi
+## Limitasi & Rekomendasi
 
 **Limitasi:**
 - RAG adalah sistem *pencari + penjawab*, bukan *penghitung*. Pertanyaan yang membutuhkan kalkulasi atau enumerasi total tidak selalu dijawab dengan akurat.
@@ -93,8 +92,8 @@ Pertanyaan User → Embedding → Vector Search → Context + Pertanyaan → LLM
 
 **Rekomendasi penggunaan:**
 - Gunakan pertanyaan yang **spesifik dan deskriptif** untuk hasil optimal.
-- ✅ `"Sebutkan semua menu nasi box di Yeyeti Katering"`
-- ❌ `"Berapa banyak menu di Yeyeti Katering?"`
+-  `"Sebutkan semua menu nasi box di Yeyeti Katering"`
+-  `"Berapa banyak menu di Yeyeti Katering?"`
 - Untuk pertanyaan enumerasi, tambahkan kata kunci seperti *"sebutkan"*, *"jelaskan"*, atau *"apa saja"*.
 
 **Rekomendasi pengembangan:**
@@ -103,7 +102,7 @@ Pertanyaan User → Embedding → Vector Search → Context + Pertanyaan → LLM
 
 ---
 
-## 🗂️ Struktur Folder
+##  Struktur Folder
 
 ```
 FinalProject_AI_Bootcamp/
@@ -138,7 +137,7 @@ FinalProject_AI_Bootcamp/
 
 ---
 
-## 🚀 Cara Menjalankan
+##  Cara Menjalankan
 
 ### Prasyarat
 - Akun Google (untuk Colab & Drive)
@@ -180,7 +179,7 @@ FinalProject_AI_Bootcamp/
 
 ---
 
-## 👤 Author
+## Author
 
 **NaLaPro — AI Bootcamp NLP-B Batch 10**
 
