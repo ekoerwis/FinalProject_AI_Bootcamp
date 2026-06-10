@@ -1,10 +1,10 @@
-# RAG Onboarding Chatbot — F&B Industry
+# RAG Onboarding Chatbot for F&B Industry
 
 <p align="center">
   <img src="assets/Pipeline_RAG_Final_Bootcamp.png" width="600"/>
 </p>
 
-> Final Project — AI Bootcamp NaLaPro Batch 10  
+> Final Project AI Bootcamp NaLaPro Batch 10  
 > Retrieval-Augmented Generation (RAG) untuk onboarding karyawan baru di industri F&B
 
 ---
@@ -17,7 +17,7 @@ Chatbot live dan bisa diakses di:  https://finalprojectaibootcamp-katering.strea
 
 ## Deskripsi Proyek
 
-Chatbot berbasis RAG yang dirancang untuk membantu karyawan baru memahami dokumen internal perusahaan secara interaktif. Sistem ini memungkinkan pengguna mengajukan pertanyaan dalam bahasa natural dan mendapatkan jawaban yang relevan berdasarkan dokumen resmi perusahaan — tanpa perlu membaca seluruh dokumen secara manual.
+Chatbot berbasis RAG yang dirancang untuk membantu karyawan baru memahami dokumen internal perusahaan secara interaktif. Sistem ini memungkinkan pengguna mengajukan pertanyaan dalam bahasa natural dan mendapatkan jawaban yang relevan berdasarkan dokumen resmi perusahaan, tanpa perlu membaca seluruh dokumen secara manual.
 
 Proyek ini menggunakan **Katering Yeyeti** sebagai studi kasus, dengan dataset dokumen internal perusahaan.
 
@@ -38,7 +38,7 @@ Proyek ini menggunakan **Katering Yeyeti** sebagai studi kasus, dengan dataset d
 | Komponen | Teknologi |
 |---|---|
 | Orchestration | LangChain |
-| Language Model | Groq — LLaMA 3.1 8B Instant |
+| Language Model | Groq: LLaMA 3.1 8B Instant |
 | Embedding Model | `paraphrase-multilingual-MiniLM-L12-v2` |
 | Vector Database | Qdrant Cloud |
 | Compute | Google Colab + T4 GPU |
@@ -61,13 +61,13 @@ Pertanyaan User → Embedding → Vector Search → Context + Pertanyaan → LLM
                                                                     Log → Google Sheets
 ```
 
-1. **Load** — Dokumen PDF dibaca menggunakan PyMuPDF
-2. **Chunking** — Dokumen dipecah menjadi potongan 500 karakter dengan overlap 50 karakter
-3. **Embedding** — Tiap chunk dikonversi menjadi vektor menggunakan SentenceTransformers
-4. **Store** — Vektor disimpan permanen di Qdrant Cloud
-5. **Retrieve** — Pertanyaan user di-embed, lalu dicari chunk paling relevan via cosine similarity
-6. **Generate** — Context + pertanyaan dikirim ke Groq LLaMA 3.1 untuk menghasilkan jawaban
-7. **Log** — Setiap percakapan otomatis tercatat di Google Sheets (timestamp, pertanyaan, jawaban, perusahaan, response time)
+1. **Load** - Dokumen PDF dibaca menggunakan PyMuPDF
+2. **Chunking** - Dokumen dipecah menjadi potongan 500 karakter dengan overlap 50 karakter
+3. **Embedding** - Tiap chunk dikonversi menjadi vektor menggunakan SentenceTransformers
+4. **Store** - Vektor disimpan permanen di Qdrant Cloud
+5. **Retrieve** - Pertanyaan user di-embed, lalu dicari chunk paling relevan via cosine similarity
+6. **Generate** - Context + pertanyaan dikirim ke Groq LLaMA 3.1 untuk menghasilkan jawaban
+7. **Log** - Setiap percakapan otomatis tercatat di Google Sheets (timestamp, pertanyaan, jawaban, perusahaan, response time)
 
 ---
 
@@ -87,7 +87,7 @@ Pertanyaan User → Embedding → Vector Search → Context + Pertanyaan → LLM
 **Limitasi:**
 - RAG adalah sistem *pencari + penjawab*, bukan *penghitung*. Pertanyaan yang membutuhkan kalkulasi atau enumerasi total tidak selalu dijawab dengan akurat.
 - Kualitas jawaban sangat bergantung pada kualitas dan kelengkapan dokumen sumber.
-- Sistem dirancang untuk satu perusahaan per sesi — tidak mendukung pencarian lintas perusahaan.
+- Sistem dirancang untuk satu perusahaan per sesi, tidak mendukung pencarian lintas perusahaan.
 - Sistem memberikan hasil optimal ketika pertanyaan disampaikan dalam bahasa Indonesia yang jelas dan deskriptif. Pertanyaan dengan banyak singkatan, typo, atau bahasa non-formal dapat menurunkan akurasi pencarian dokumen.
 
 **Rekomendasi penggunaan:**
@@ -97,8 +97,8 @@ Pertanyaan User → Embedding → Vector Search → Context + Pertanyaan → LLM
 - Untuk pertanyaan enumerasi, tambahkan kata kunci seperti *"sebutkan"*, *"jelaskan"*, atau *"apa saja"*.
 
 **Rekomendasi pengembangan:**
-- Tambahkan **query preprocessing** (normalisasi teks, koreksi typo) agar chatbot dapat melayani semua lapisan karyawan — termasuk yang terbiasa menggunakan bahasa sehari-hari atau informal.
-- Tambahkan **query expansion** — LLM memparafrase ulang pertanyaan user sebelum dicari ke Qdrant untuk meningkatkan akurasi retrieval.
+- Tambahkan **query preprocessing** (normalisasi teks, koreksi typo) agar chatbot dapat melayani semua lapisan karyawan, termasuk yang terbiasa menggunakan bahasa sehari-hari atau informal.
+- Tambahkan **query expansion** LLM memparafrase ulang pertanyaan user sebelum dicari ke Qdrant untuk meningkatkan akurasi retrieval.
 
 ---
 
@@ -153,7 +153,7 @@ FinalProject_AI_Bootcamp/
    - `QDRANT_URL`
    - `QDRANT_API_KEY`
 4. **Sesuaikan path** Google Drive di Cell 3 jika diperlukan
-5. **Run All** — pipeline akan berjalan otomatis dari load PDF hingga chatbot siap digunakan
+5. **Run All** - pipeline akan berjalan otomatis dari load PDF hingga chatbot siap digunakan
 6. Gunakan **Cell Test** di bagian bawah notebook untuk mulai bertanya
 
 ### Deploy Streamlit
@@ -181,7 +181,7 @@ FinalProject_AI_Bootcamp/
 
 ## Author
 
-**NaLaPro — AI Bootcamp NLP-B Batch 10**
+**NaLaPro AI Bootcamp NLP-B Batch 10**
 
 - Wahid Setio Darmadi
 - M. Dhimas Agung Sugiharto
