@@ -24,7 +24,7 @@ st.set_page_config(
 )
 
 # ============================================================
-# Load model & koneksi (cache biar ga reload terus)
+# Load model & koneksi
 # ============================================================
 @st.cache_resource
 def load_resources():
