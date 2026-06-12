@@ -13,8 +13,7 @@ Sistem berbasis RAG yang dirancang untuk membantu karyawan baru memahami dokumen
 Untuk detail Struktur Pipeline dan teknis lainnya silakan lihat di README FinalProject.
 
 ## Anggota Tim NLP - B - NaLaPro
-- Wahid Setio Darmadi
-- M. Dhimas Agung Sugiharto
-- Yasmin Kamila
-- Eko Erwis Wandoko
-- Muh. Idris
+- [Wahid Setio Darmadi](https://github.com/whddarmadi)
+- [M. Dhimas Agung Sugiharto](https://github.com/otrahigus)
+- [Yasmin Kamila](https://github.com/yasminkamila)
+- [Eko Erwis Wandoko](https://github.com/ekoerwis)
