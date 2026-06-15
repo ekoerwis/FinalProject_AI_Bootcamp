@@ -1,7 +1,7 @@
 # RAG Onboarding Chatbot for F&B Industry
 
 <p align="center">
-  <img src="assets/Pipeline_RAG_Final_Bootcamp.png" width="600"/>
+  <img src="assets/Pipeline_RAG_Final_Bootcamp.png" width="800"/>
 </p>
 
 > Final Project AI Bootcamp NaLaPro Batch 10  
@@ -51,6 +51,25 @@ Proyek ini menggunakan **Katering Yeyeti** sebagai studi kasus, dengan dataset d
 
 ---
 
+## Mengapa Groq + LLaMA?
+
+Dalam arsitektur RAG, kualitas sistem tidak hanya ditentukan oleh LLM-nya — informasi faktual justru sebagian besar berasal dari dokumen yang di-retrieve. Karena itu, model flagship yang sangat mahal bukan keharusan. Berikut alasan pemilihan **Groq + LLaMA 3.1**:
+
+| # | Alasan | Penjelasan |
+|---|--------|------------|
+| 1 | **Latensi sangat rendah** | Groq menggunakan arsitektur LPU (*Language Processing Unit*) khusus — token generation jauh lebih cepat dari GPU konvensional, membuat respons chatbot terasa real-time. |
+| 2 | **Cost efficiency** | Biaya operasional jauh lebih rendah dibanding model flagship (GPT, Claude). Cocok untuk prototipe dan deployment skala menengah. |
+| 3 | **Kesesuaian dengan RAG** | LLM dalam RAG lebih berfungsi sebagai *reasoning + response engine*, bukan sumber pengetahuan. LLaMA mampu menghasilkan jawaban berkualitas baik ketika diberi konteks yang relevan. |
+| 4 | **Open-weight model** | LLaMA adalah model open-weight — tidak terikat satu provider. Jika Groq tidak digunakan, model yang sama bisa dijalankan via Together AI, Fireworks, Replicate, atau local inference. |
+| 5 | **Kualitas memadai untuk use case** | Use case onboarding (tanya-jawab berbasis dokumen) tidak memerlukan reasoning kompleks tingkat tinggi. Performa LLaMA sudah sangat memadai dikombinasikan dengan retrieval yang baik. |
+| 6 | **Skalabilitas** | Throughput tinggi + biaya terkendali = fondasi yang siap untuk peningkatan jumlah pengguna di masa depan. |
+
+> **Kesimpulan:** Groq + LLaMA dipilih karena memberikan kombinasi seimbang antara kecepatan, efisiensi biaya, kualitas jawaban, dan fleksibilitas deployment — tanpa overhead model premium yang tidak diperlukan untuk use case ini.
+>
+> *Catatan: Groq dipilih setelah evaluasi dengan Gemini Flash (Google) yang terkendala quota limit di free tier, sehingga mengganggu stabilitas pipeline selama pengembangan.*
+
+---
+
 ## Cara Kerja RAG Pipeline
 
 ```
@@ -68,6 +87,26 @@ Pertanyaan User → Embedding → Vector Search → Context + Pertanyaan → LLM
 5. **Retrieve** - Pertanyaan user di-embed, lalu dicari chunk paling relevan via cosine similarity
 6. **Generate** - Context + pertanyaan dikirim ke Groq LLaMA 3.1 untuk menghasilkan jawaban
 7. **Log** - Setiap percakapan otomatis tercatat di Google Sheets (timestamp, pertanyaan, jawaban, perusahaan, response time)
+
+---
+
+## Tipe RAG yang Digunakan
+
+Sistem ini menggunakan pendekatan **Enhanced RAG** — bukan Naive RAG standar.
+
+**Naive RAG** adalah pipeline paling dasar: dokumen di-retrieve → digabung dengan pertanyaan → dikirim ke LLM. Tidak ada mekanisme tambahan di dalamnya.
+
+**Enhanced RAG** yang diimplementasikan pada proyek ini menambahkan beberapa komponen di atas pipeline dasar tersebut:
+
+| Komponen | Keterangan |
+|---|---|
+| **Query Contextualization** | Pertanyaan lanjutan (mis. *"itu apa?"*) ditulis ulang menjadi pertanyaan mandiri sebelum masuk ke Qdrant — meningkatkan akurasi retrieval |
+| **Dynamic Top-K** | Jumlah chunk yang diambil menyesuaikan tipe pertanyaan: lebih banyak untuk pertanyaan menu, lebih sedikit untuk pertanyaan umum |
+| **Multi-turn Memory** | 3 pesan terakhir disertakan ke LLM di setiap request — menjaga konsistensi jawaban antar giliran |
+| **Confidence Score** | Rata-rata cosine similarity ditampilkan ke user — jika di bawah threshold, user diingatkan untuk konfirmasi ke supervisor |
+| **Anti-hallucination Guardrail** | System prompt berlapis dengan 7 aturan eksplisit — mencegah LLM mengarang informasi yang tidak ada di dokumen |
+
+Pendekatan ini dipilih karena pipeline dasar Naive RAG tidak cukup untuk menangani percakapan multi-giliran dan pertanyaan ambigu yang umum terjadi dalam konteks onboarding karyawan baru.
 
 ---
 
@@ -175,3 +214,5 @@ FinalProject_AI_Bootcamp/
 ---
 
 *Built with Python · LangChain · Groq · Qdrant · Google Colab · Streamlit · Google Sheets*
+
+---
