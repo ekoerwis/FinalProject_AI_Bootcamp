@@ -214,3 +214,5 @@ FinalProject_AI_Bootcamp/
 ---
 
 *Built with Python · LangChain · Groq · Qdrant · Google Colab · Streamlit · Google Sheets*
+
+---
