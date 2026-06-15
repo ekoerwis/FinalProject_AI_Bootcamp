@@ -1,7 +1,7 @@
 # RAG Onboarding Chatbot for F&B Industry
 
 <p align="center">
-  <img src="assets/Pipeline_RAG_Final_Bootcamp.png" width="600"/>
+  <img src="assets/Pipeline_RAG_Final_Bootcamp.png" width="800"/>
 </p>
 
 > Final Project AI Bootcamp NaLaPro Batch 10  
