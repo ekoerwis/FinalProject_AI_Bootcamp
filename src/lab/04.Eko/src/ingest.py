@@ -7,10 +7,17 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_qdrant import QdrantVectorStore
 # ---------------------------------------------------------
+import shutil
 
-DATA_DIR = "data/Susu Mbok Darmi" 
+DATA_DIR = "data/Katering Yeyeti" 
 
 def run_multifile_ingestion():
+    # --- Tambahan: Hapus database lama jika ada ---
+    if os.path.exists("qdrant_db"):
+        print("🧹 Menghapus database Qdrant lama...")
+        shutil.rmtree("qdrant_db")
+    # ----------------------------------------------
+
     pdf_files = glob.glob(os.path.join(DATA_DIR, "*.pdf"))
     
     if not pdf_files:
@@ -38,8 +45,8 @@ def run_multifile_ingestion():
 
     print("\n✂️ Memotong seluruh dokumen menjadi bagian-bagian kecil...")
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=400,
-        chunk_overlap=50
+        chunk_size=500,
+        chunk_overlap=80
     )
     chunks = text_splitter.split_documents(all_documents)
     print(f"✅ Berhasil memecah menjadi total {len(chunks)} potongan teks dari semua PDF.")
