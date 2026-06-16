@@ -49,7 +49,7 @@ Proyek ini menggunakan **Katering Yeyeti** sebagai studi kasus, dengan dataset d
 |---|---|---|
 | Yeyeti Katering & Peyek Yeyeti | Katering Yeyeti | 11 PDF |
 
-**Total: 11 dokumen PDF · 31 halaman · 145 chunks**
+**Total: 11 dokumen PDF · 31 halaman · 141 chunks**
 
 ---
 
@@ -106,7 +106,7 @@ Pertanyaan User → Embedding → Vector Search → Context + Pertanyaan → LLM
 4. **Store** - Vektor disimpan permanen di Qdrant Cloud
 5. **Retrieve** - Pertanyaan user di-embed, lalu dicari chunk paling relevan via cosine similarity
 6. **Generate** - Context + pertanyaan dikirim ke Groq LLaMA 3.1 untuk menghasilkan jawaban
-7. **Log** - Setiap percakapan otomatis tercatat di Google Sheets (timestamp, pertanyaan, jawaban, perusahaan, response time)
+7. **Log** - Setiap percakapan otomatis tercatat di Google Sheets (timestamp, pertanyaan, jawaban, perusahaan, response time, relevansi score)
 
 ---
 
@@ -220,12 +220,6 @@ FinalProject_AI_Bootcamp/
    client_email = "..."
    client_id = "..."
    ```
-
----
-
-## Author
-
-
 
 ---
 

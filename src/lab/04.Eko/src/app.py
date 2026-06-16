@@ -7,16 +7,16 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 from rag_pipeline import ask_bot
 
 # Mengatur tampilan halaman web
-st.set_page_config(page_title="Onboarding MbokDarmi", page_icon="🥛", layout="centered")
+st.set_page_config(page_title="Onboarding Katering Yeyeti", page_icon="-", layout="centered")
 
-st.title("🥛 Dairysta Bot - MbokDarmi")
+st.title("🥛 Dairysta Bot - Katering Yeyeti")
 st.caption("Asisten AI Cerdas untuk Panduan SOP dan Onboarding Karyawan")
 st.divider()
 
 # Inisialisasi memori untuk menyimpan riwayat percakapan (chat history)
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "assistant", "content": "Halo! Saya adalah asisten virtual HR MbokDarmi. Ada yang bisa saya bantu terkait SOP, aturan operasional, atau absensi hari ini?"}
+        {"role": "assistant", "content": "Halo! Saya adalah asisten virtual HR Katering Yeyeti. Ada yang bisa saya bantu terkait SOP, aturan operasional, atau absensi hari ini?"}
     ]
 
 # Tampilkan seluruh riwayat percakapan di layar
@@ -25,7 +25,7 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
 
 # Kolom input untuk pengguna mengetik pertanyaan
-if prompt := st.chat_input("Tanyakan sesuatu tentang SOP Mbok Darmi..."):
+if prompt := st.chat_input("Tanyakan sesuatu tentang SOP Katering Yeyeti..."):
     
     # 1. Tampilkan pertanyaan pengguna di layar
     with st.chat_message("user"):

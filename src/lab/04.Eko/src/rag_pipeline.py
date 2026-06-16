@@ -3,6 +3,9 @@ from dotenv import load_dotenv
 from google import genai
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_qdrant import QdrantVectorStore
+import time
+import pandas as pd
+from datetime import datetime
 
 # 1. Load API Key Gemini
 load_dotenv()
@@ -27,16 +30,33 @@ qdrant = QdrantVectorStore.from_existing_collection(
     path="qdrant_db"
 )
 
+def save_to_excel(filename, data):
+    """Fungsi untuk menyimpan data ke file Excel"""
+    df_new = pd.DataFrame([data])
+    if os.path.exists(filename):
+        df_existing = pd.read_excel(filename)
+        df_combined = pd.concat([df_existing, df_new], ignore_index=True)
+    else:
+        df_combined = df_new
+    df_combined.to_excel(filename, index=False)
+
 def ask_bot(question: str):
+    start_time = time.time() # Mulai hitung waktu
+
     """Fungsi utama untuk bertanya ke Bot"""
     print(f"\n❓ PERTANYAAN: {question}")
     print("🔍 Sedang mencari dokumen SOP MbokDarmi yang relevan...")
     
     # A. Cari 3 dokumen paling mirip dengan pertanyaan
-    search_results = qdrant.similarity_search(question, k=11)
+    # search_results = qdrant.similarity_search(question, k=11)
+    search_results = qdrant.similarity_search_with_score(question, k=11)
+
+    # Ambil score tertinggi (dokumen pertama)
+    top_score = search_results[0][1]
     
     # B. Gabungkan teks dari 3 dokumen tersebut
-    context_text = "\n\n---\n\n".join([doc.page_content for doc in search_results])
+    # context_text = "\n\n---\n\n".join([doc.page_content for doc in search_results])
+    context_text = "\n\n---\n\n".join([doc[0].page_content for doc in search_results])
     
     if not context_text.strip():
         return "Maaf, saya tidak menemukan informasi tersebut di dalam dokumen."
@@ -65,6 +85,30 @@ ATURAN MENJAWAB:
             model='models/gemini-2.5-flash-lite', 
             contents=prompt
         )
+
+        # Mengakses metadata penggunaan token dari Gemini
+        metadata = response.usage_metadata
+        prompt_tokens = metadata.prompt_token_count
+        response_tokens = metadata.candidates_token_count
+        total_tokens = metadata.total_token_count
+        # ------------------------
+
+        end_time = time.time() # Selesai hitung waktu
+        response_time = round(end_time - start_time, 2)
+
+        # Simpan ke Excel
+        log_data = {
+            "Waktu": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "Pertanyaan": question,
+            "Jawaban": response.text,
+            "Response Time (s)": response_time,
+            "Score": top_score,
+            "Input Token": prompt_tokens,    # <--- Tambahan
+            "Output Token": response_tokens, # <--- Tambahan
+            "Total Token": total_tokens      # <--- Tambahan
+        }
+        save_to_excel("chat_history_analisa.xlsx", log_data)
+        
         return response.text
     except Exception as e:
         return f"❌ Terjadi kesalahan saat menghubungi Gemini: {e}"
